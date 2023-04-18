@@ -1,0 +1,14 @@
+{
+  "name": "s1_6",
+  "version": "1.0.0",
+  "description": "Tests",
+  "main": "S1_6_1.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "J Olivella",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}

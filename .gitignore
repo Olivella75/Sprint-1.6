@@ -1,0 +1,5 @@
+node_modules
+test.docx
+#Arxius temporals
+tmp/ 
+*.bak 

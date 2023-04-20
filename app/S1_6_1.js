@@ -4,6 +4,9 @@
 //Crea els tests corresponents per verificar el funcionament de l'exercici Async / Await N1 E2.
 
 function add (param1, param2) {
+    if(typeof param1 !== "number" || typeof param2 !== "number") {
+        throw new Error ("Has d'introduir 2 números");
+    }
     return param1 + param2;
 }
 
@@ -16,6 +19,9 @@ function multiply (param1, param2) {
 }
 
 function divide (param1, param2) {
+    if (param2 === 0) {
+        throw new Error ("No es pot dividir per 0");
+    }
     return param1 / param2;
 }
 

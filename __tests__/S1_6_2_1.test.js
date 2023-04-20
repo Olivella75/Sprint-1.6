@@ -42,16 +42,6 @@ describe("Funció sum", () => {
 
 const { Persona} = require("../app/S1_2_2_2b");
 
-// Mock de la clase Persona
-class PersonaMock {
-    constructor(nom) {
-        this.nom = nom;
-    }
-    dirNom() {
-        console.log(`El meu nom és ${this.nom}.`);
-    }
-}
-
 // Mock del método dirNom
 const dirNomMock = jest.fn();
 

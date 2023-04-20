@@ -33,22 +33,8 @@ getEmployee(4)
     .catch((err) => console.log(err));
 */
   
-// Mock de l'arxiu JSON
-const mockData = {
-    employees: [
-        {id: 1, name: "Linux Torvalds"}, 
-        {id: 2, name: "Bill Gates"}, 
-        {id: 3, name: "Jeff Bezos"}
-    ],
-    salaries: [
-        {id: 1, salary: 4000}, 
-        {id: 2, salary: 1000}, 
-        {id: 3, salary: 2000}
-    ]
-};
-  
 jest.mock('fs');
-fs.readFileSync.mockReturnValue(JSON.stringify(mockData));
+fs.readFileSync.mockReturnValue(JSON.stringify(data));
   
 describe('getEmployee', () => {
     test("Retorna ok si el id existeix", async () => {
@@ -70,4 +56,27 @@ describe('getSalary', () => {
     test("Error si el id no existeix", async () => {
         await expect(getSalary(4)).rejects.toBe('No existeix el id 4.');
     });
+});
+
+//Utilitzant com a base l'exercici Async / Await, crea tests que forcin errors de funcionament i 
+//verifiqui que els errors llançats són els esperats. S1_4_2_1b
+
+const { double, sum } = require("../app/S1_4_2_1c");
+
+describe("Funció double, forçar errors", () => {
+    test("Si es passa un string per multiplicar per 2 dona error",  async () => {
+        const param = "a";
+        jest.useFakeTimers();
+        const result = double(param);
+        const expectedResult = `La dada introduida ${param} no és un número.`;
+        jest.runAllTimers();
+        await expect(result).rejects.toStrictEqual(expectedResult);
+    })
+});
+
+describe("Funció sum, forçar errors.", () => {
+  test("Si es passas un string per sumar dona error", async () => {
+    await expect(sum('1', 2, 3)).rejects.toThrow('Alguna dada que has passat no era un número');
+    await expect(sum('1', '2', '3')).rejects.toThrow('Alguna dada que has passat no era un número');
+  });
 });

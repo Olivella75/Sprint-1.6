@@ -13,18 +13,19 @@ describe("Funció add", () => {
         const actual = add(-4, 2);
         expect(actual).toEqual(expected);
     });
+
     test("Error només s'ha introduit un número", () => {
         try {
             add(3);
         } catch (error) {
-            expect(error.message).toBe("Es necessiten 2 números per fer l'operació");
+            expect(error.message).toBe("Has d'introduir 2 números");
         }
     });
     test("S'han d'introduir números, no lletres", () => {
         try {
             add("a", "b");
         } catch (error) {
-            expect(error.message).toBe("S'han d'introduir números");
+            expect(error.message).toBe("Has d'introduir 2 números");
         }
     })
 });
@@ -61,15 +62,12 @@ describe("Funció divide", () => {
         const actual = divide(6, 2);
         expect(actual).toEqual(expected);
     });
-    test("La divisió de 2 entre 0 ha de retornar infinit", () => {
-        const expected = Infinity;
-        const actual = divide(2, 0);
-        expect(actual).toEqual(expected);
-    })
-    test("La divisió de 0 entre 0 ha de retornar NaN", () => {
-        const expected = NaN;
-        const actual = divide(0, 0);
-        expect(actual).toEqual(expected);
+    test("Si el divident es 0 ha de retornar error", () => {
+        try {
+            divide(2, 0);
+        } catch (error) {
+            expect(error.message).toBe("No es pot dividir per 0");
+        }
     })
 });
 
@@ -80,21 +78,36 @@ const {arrow1, write} = require ("../app/S1_3_1_2");
 describe("Funció arrow1", () => {
     test('arrow1 15 ha de donar "Major de 10"', function (done) {
         function callback(result) {
-            expect(result).toBe('Major de 10');
+            expect(result).toBe("Major de 10");
             done();
         }
         arrow1(15, callback);
     });
-    test('arrow1 8 ha de donar "Menor de 10"', function (done) {
-        function callback(result) {
-            expect(result).toBe('Menor de 10');
-            done();
-        }
-        arrow1(8, callback);
+
+    test('arrow1 22 ha de donar "Major de 10"',() => {
+        const result = jest.fn();
+        const param = 22;
+        arrow1(param, result);
+        expect(result).toHaveBeenCalledWith("Major de 10");
     });
+
+    test('arrow1 8 ha de donar "Menor de 10"', () => {
+        const result = jest.fn();
+        const param = 8;
+        arrow1(param, result);
+        expect(result).toHaveBeenCalledWith("Menor de 10");
+    });
+
     test ("Has d'introduir un número", () => {
         try {
             arrow1("A", write);
+        } catch (error) {
+            expect(error.message).toBe("Posa un número!!");
+        }
+    });
+    test ("Has d'introduir un número", () => {
+        try {
+            arrow1("A", jest.fn());
         } catch (error) {
             expect(error.message).toBe("Posa un número!!");
         }
